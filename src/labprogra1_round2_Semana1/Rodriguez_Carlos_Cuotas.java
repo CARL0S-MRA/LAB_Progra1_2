@@ -22,7 +22,7 @@ public class Rodriguez_Carlos_Cuotas {
         tasaInteres =lea.nextDouble()/100;
 
         System.out.println("Ingresar la comision por cuota");
-        comisionCuota =lea.nextDouble()/100;
+        comisionCuota =lea.nextDouble();
 
         System.out.println("Ingresar el porcentaje del seguro mensual");
         seguroMensual =lea.nextDouble()/100;
