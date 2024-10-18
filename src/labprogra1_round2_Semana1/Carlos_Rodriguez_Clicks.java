@@ -4,21 +4,19 @@ import java.util.Scanner;
 public class Carlos_Rodriguez_Clicks {
     public static void main(String[] args) {
         Scanner lea=new Scanner(System.in);
+        double totalPagar=0;
+        double ISV=0.16;
+        double CPC=0;
+        double totalISV=0;
         int clicsTotales;
-        
         int clic1;
         double precioClic1;
-        
         int clic2;
         double precioClic2;
-        
         int clic3;
         double precioClic3;
         
-        double totalPagar=0;
-        double ISV=1.16;
-        double CPC=0;
-        double totalISV=0;
+        
         
         System.out.println("Ingrese los clics totales: ");
         clicsTotales=lea.nextInt();
@@ -38,11 +36,11 @@ public class Carlos_Rodriguez_Clicks {
         System.out.println("Precio terceros cliscs: ");
         precioClic3=lea.nextDouble();
         
-        totalPagar = precioClic1*clic1+precioClic2*clic2+precioClic3*clic3;
+        totalPagar = precioClic1*clic1 + precioClic2*clic2 + precioClic3*clic3;
         CPC = totalPagar/clicsTotales;
         totalISV = totalPagar * ISV;
         
-        System.out.println(String.format(" %.2f", CPC));
-        System.out.println(String.format(" %.2f", totalISV));
+        System.out.println("CPC: "+String.format(" %.2f", CPC));
+        System.out.println("Total ISV: "+String.format(" %.2f", totalISV));
     }
 }
