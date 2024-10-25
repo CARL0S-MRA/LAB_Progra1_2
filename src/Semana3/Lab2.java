@@ -24,14 +24,14 @@ public class Lab2 {
                 int longitud=cadena.length();
                 int maxRepeticiones=0;
                 char caracterRepetido=' ';
-                char caracter=0;
+                char caracteres=0;
 
-                while (caracter<256) {
+                while (caracteres<256) {
                     int contador=0;
                     int contadorCaracter=0;
 
                     while (contadorCaracter<longitud) {
-                        if (cadena.charAt(contadorCaracter)==caracter) {
+                        if (cadena.charAt(contadorCaracter)==caracteres) {
                             contador++;
                         }
                         contadorCaracter++;
@@ -39,10 +39,10 @@ public class Lab2 {
 
                     if (contador>maxRepeticiones) {
                         maxRepeticiones=contador;
-                        caracterRepetido=caracter;
+                        caracterRepetido=caracteres;
                     }
 
-                    caracter++;
+                    caracteres++;
                 }
                 System.out.println("El caracter que mas veces se repite en la cadena es: " + caracterRepetido);
                 System.out.println("Numero de veces que se repite en la cadena: " + maxRepeticiones);
@@ -53,7 +53,7 @@ public class Lab2 {
                 System.out.println("Ingresar cantidad de notas que desea: ");
                 int cantidadNotas=lea.nextInt();
                 int contador=0;
-                double sumarnota=0;
+                double Sumarnota=0;
                 double promedio=0;
                 double notamayor=0;
                 double notamenor=100;
@@ -62,10 +62,10 @@ public class Lab2 {
                 while(contador++<cantidadNotas){
                     System.out.println("Nota#"+contador+": ");
                     double nota=lea.nextDouble();
-                    sumarnota+=nota;
+                    Sumarnota+=nota;
                     
                      
-                    while(nota<=-1|| nota>=101){
+                    while(nota<=-1 || nota>=101){
                         System.out.println("Nota#"+contador+": ");
                         nota=lea.nextDouble();
                         
@@ -78,7 +78,7 @@ public class Lab2 {
                 }
                 }
                 
-                promedio=sumarnota/cantidadNotas;
+                promedio=Sumarnota/cantidadNotas;
                 System.out.println("PROMEDIO: "+String.format("%.2f",promedio));
                 System.out.println("NOTA MENOR: "+notamenor);
                 System.out.println("NOTA MAYOR: "+notamayor);
@@ -86,7 +86,80 @@ public class Lab2 {
                 
             else if (opcion==3){
                 System.out.println("----CLASE----");
+                int inicio=0;
+                System.out.println(" Ingrese la fecha actual en el siguiente formato: dia, DD/MM");
+                String fecha=lea.next().toLowerCase();
+                int coma = fecha.indexOf(',');
+                int pleca = fecha.indexOf('/');
+                String dia = fecha.substring(inicio, coma);
+                String examen;
+                int aprobado;
+                String numeroDia = fecha.substring(coma + 1, pleca);
+                int numeroDias = Integer.parseInt(numeroDia);
+                String numeroMes= fecha.substring(pleca + 1);
+                int mes = Integer.parseInt(numeroMes);
                 
+                if (numeroDias > 31 && numeroDias < 0) {
+                    System.out.println("ERROR | FECHA INCORRECTA");
+                }
+                if (mes > 12 && mes < 0) {
+                    System.out.println("ERROR | FECHA INCORRECTA");
+                }
+                
+                if (dia.equals("lunes")) {
+                    System.out.println("Nivel Inicial"
+                    +"\n Ese dia hubo examen?");
+                    examen=lea.next().toLowerCase();
+                    if (examen.equals("si")) {
+                        System.out.println("Ingrese cuantos aprobaron: ");
+                        aprobado =lea.nextInt();  
+                    } 
+                }
+                if (dia.equals("martes")) {
+                        System.out.println("Nivel Intermedio"
+                        +"\n Ese dia hubo exxamen?");
+                        examen=lea.nextLine().toLowerCase();
+                        if (examen.equals("si")) {
+                            System.out.println("Ingrese cuantos aprobaron: ");
+                            aprobado=lea.nextInt();
+                        }
+                    }
+                if (dia.equals("miercoles")) {
+                    System.out.println("Nivel Avanzado"
+                    +"\n Ese dia hubo examen?");
+                    examen=lea.nextLine().toLowerCase();
+                    if (examen.equals("si")) {
+                        System.out.println("Ingrese cuantos aprobaron: ");
+                        aprobado=lea.nextInt();       
+                    }
+                }
+                
+                if (dia.equals("jueves")) {
+                    System.out.println("Practicas Habladas"+" No tienen examen");
+                    System.out.println("Ingrese el procentaje de asistencia: ");
+                    int asistencia=lea.nextInt();
+                    if (asistencia >50) {
+                        System.out.println("Asistio la mayoria");
+                    }else{
+                        System.out.println("No asistio la mayoria");
+                    }
+                }else if(dia.equals("viernes")) {
+                    System.out.println("Ingles para viajeros"+" No tienen examen");
+                    if (numeroDias == 1 && (mes == 1 || mes == 7)) {
+                        System.out.println("Comienza nuevo ciclo");
+                        System.out.println("Ingrese la cantidad de alumnos del nuevo ciclo: ");
+                        int alumnos=lea.nextInt();
+                        System.out.println("Ingrese el precio $ por cada alumno: ");
+                        double precio=lea.nextInt();
+                        double total=alumnos*precio;
+                        System.out.println("Ingreso total en $: "+total);
+                        
+                    }else{
+                        System.out.println("No es el inicio de un nuevo ciclo");
+                    }
+                }else{
+                    System.out.println("ERROR | FECHA INCORRECTA");
+                }
             }
     }
     }
