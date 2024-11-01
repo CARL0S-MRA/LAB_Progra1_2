@@ -38,8 +38,45 @@ public class Rodriguez_Carlos_Lab3_Estructura {
                 break;
                 
                 case 2:
+                    contaPerfectos++;
+                    // Agregamos las variables que vamos a usar
+                    int Contador =0;
+                    int Numero =0;
+                    int Divisor=0;
+                    System.out.println("---NUMEROS PERFECTOS---");
+                    //Pedimos que nos ingrese un numero
+                    System.out.println("Ingrese un numero: ");
+                    Numero=lea.nextInt();
+                    // hacemos un for con contador para que recorra todos los numeros exceptuando el 1
+                    //Le agregramos un if para que este verifique que el numero que ponga el contador sea divisor al numero que nosostros ingresemos
+                    for(Contador = 1; Contador < Numero; Contador++){
+                        if(Numero % Contador == 0){
+                            Divisor += Contador;
+                        }
+                    }
+                    //Le ponemos un if para que compare Si la suma de los divisores es igual al numero que nosotros ingresamos asi que nos imprima que es un numero perfecto.
+                    // Si no es asi se imprime lo contrario utilizando else
+                    if(Divisor == Numero){
+                    System.out.println(+Numero+" <=es un numero perfecto");
+                    }else{
+                        System.out.println(+Numero+" <=no es numero perfecto");
+                    }
+                break;
+                
+                case 3:
                     
                 break;
+                
+                case 4:
+                    
+                break;
+                
+                case 5:
+                    System.out.println("Veces de Palabra Alreves: "+contaAlreves);
+                    System.out.println("Veces de Numeros Perfectos: "+contaPerfectos);
+                    System.out.println("Veces de Primos: "+contaPrimos);
+                    System.out.println("Veces de Votaciones: "+contaVotaciones);
+                    
             }
         }while(opcion !=5);
     }
