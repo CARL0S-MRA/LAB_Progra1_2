@@ -2,6 +2,14 @@ package Semana4;
 import java.util.Scanner;
 import java.util.Random;
 public class Rodriguez_Carlos_Lab3_Estructura {
+    
+    //colores de los votantes
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    
     public static void main(String[] args) {
         Scanner lea=new Scanner(System.in);
         Random random=new Random();
@@ -93,10 +101,76 @@ public class Rodriguez_Carlos_Lab3_Estructura {
                             System.out.println("No es un numero primo");
                         }
 
-                break;
+                break;  
                 
                 case 4:
+                    contaVotaciones++;
+                    int votosAzul =0;
+                    int votosAmarillo=0;
+                    int votosRojo=0;
+                    int votosNegro=0;
+                    int votosNulos=0;
+                    int repetidor=0;
                     
+                    System.out.println("---VOTACIONES---");
+                    System.out.println("Ingrese cantidad de votantes: ");
+                    int votantes=lea.nextInt();
+                    for(repetidor =0; repetidor<votantes; repetidor++){
+                        
+                        System.out.println("--PLANILLA--"
+                        +ANSI_BLUE+  "\n - AZUL"
+                        +ANSI_YELLOW+"\n - AMARILLO"
+                        +ANSI_RED+   "\n - ROJO"
+                        +ANSI_BLACK+ "\n - NEGRO");
+                        System.out.println("Ingrese el voto en cualquier planilla: ");
+                        String planilla=lea.next().toUpperCase();
+                        
+                        switch(planilla){
+                            case "AZUL" :
+                                votosAzul++;
+                                break;
+                            case "AMARILLO" :
+                                votosAmarillo++;
+                                break;
+                            case "ROJO":
+                                votosRojo++;
+                                break;
+                            case "NEGRO":
+                                votosNegro++;
+                                break;
+                            default:
+                                votosNulos++;
+                                break;
+                                
+                        }
+                    }
+                    int votosValidos = votosAzul + votosRojo + votosNegro + votosAmarillo;
+                    if (votosValidos >= votantes * 0.6) {
+                        String planillaGanadora ="";
+                        int maxVotos = 0;
+                        if (votosAzul > maxVotos) {
+                            maxVotos = votosAzul;
+                            planillaGanadora = "AZUL";
+                        }
+                        if (votosRojo > maxVotos) {
+                            maxVotos = votosRojo;
+                            planillaGanadora = "ROJO";
+                        }
+                        if (votosNegro > maxVotos) {
+                            maxVotos = votosNegro;
+                            planillaGanadora = "NEGRO";
+                        }
+                        if (votosAmarillo > maxVotos) {
+                            maxVotos = votosAmarillo;
+                            planillaGanadora = "AMARILLO";
+                        }
+
+                        // Imprime la planilla ganadora
+                        System.out.println("La planilla ganadora es: " + planillaGanadora);
+                    } else {
+                        // Imprime que la votación ha fallado si no se cumplen los requisitos
+                        System.out.println("VOTACION FALLIDA");
+                    }
                 break;
                 
                 case 5:
