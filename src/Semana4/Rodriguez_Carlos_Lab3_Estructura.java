@@ -64,7 +64,35 @@ public class Rodriguez_Carlos_Lab3_Estructura {
                 break;
                 
                 case 3:
+                    contaPrimos++;
+                    //Ponemos una variable y la igualamos a random para que asi pueda imprimir numeros aleatorios del 1 al 100
+                    int numeroRandom = random.nextInt(100);
+                    // Esta variable un contador y la igualamos a 1 para que comienze A contar los numeros divisores desde 1
+                    int contadorDivisor = 1;
+                    int primo =0;
                     
+                    System.out.println("---PRIMOS---");
+                    
+                    System.out.println("El numero generado es: "+numeroRandom);
+                    // Hacemos un bucle con while para encontrar los divisores del numero generado
+                    
+                    while(contadorDivisor <= numeroRandom){
+                        // En if verifica si el contador es divisor del numero aleatorio
+                        if(numeroRandom % contadorDivisor ==0){
+                            primo += contadorDivisor;
+                        }
+                        contadorDivisor++;
+                    }
+                        // En el if hacemos que compare si es primo el numero random generado
+                        // Si es primo que genero que se dividido por dos numeros y que ha sido por 1 y el numero random\
+                        // Si es lo contario solo se imprime que no es primo
+                        if(primo==numeroRandom + 1){
+                            System.out.println("El "+numeroRandom+" es divisor de dos numeros");
+                            System.out.println("Divisores de "+numeroRandom+" son: 1 y "+numeroRandom);
+                        }else{
+                            System.out.println("No es un numero primo");
+                        }
+
                 break;
                 
                 case 4:
