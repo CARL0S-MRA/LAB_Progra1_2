@@ -1,11 +1,16 @@
-
 package Semana8_Lab7_XO;
+/*
+Tranajo hecho con Carlos Mauricio
+*/
+import java.awt.Color;
 import javax.swing.JLabel;
+
 public class TableroXO extends javax.swing.JFrame {
     
-    String turn="X";
-    JLabel position[]=new JLabel[9];
-    int ganador[][]={
+    String turno = "X";
+    JLabel posicion[] = new JLabel[9];
+    //Formas de ganar
+    int victorias[][] = {
         {1,2,3},
         {4,5,6},
         {7,8,9},
@@ -13,64 +18,103 @@ public class TableroXO extends javax.swing.JFrame {
         {2,5,8},
         {3,6,9},
         {1,5,9},
-        {3,5,7},
+        {3,5,7}
     };
     
     public TableroXO() {
         initComponents();
-        
-        
         this.setLocationRelativeTo(null);
-        position[0]=jLabel2;
-        position[1]=jLabel3;
-        position[2]=jLabel4;
-        position[3]=jLabel5;
-        position[4]=jLabel6;
-        position[5]=jLabel7;
-        position[6]=jLabel8;
-        position[7]=jLabel9;
-        position[8]=jLabel10;
+        posicion[0] = jLabel1;
+        posicion[1] = jLabel2;
+        posicion[2] = jLabel3;
+        posicion[3] = jLabel4;
+        posicion[4] = jLabel5;
+        posicion[5] = jLabel6;
+        posicion[6] = jLabel7;
+        posicion[7] = jLabel8;
+        posicion[8] = jLabel9;
+    }
 
-
+    //metodo para presionar la casilla
+    public void presionar(int casilla){
+        //If para revisar si la casilla esta vacia
+        if(posicion[casilla - 1].getText().equals("")){
+            //Si esta vacilla pone el texto del turno que toca
+            posicion[casilla - 1].setText(turno);
+            //Luego cambia de turno
+            cambiarturno();
+            comprobarganador();
+        }
     }
     
-    public void pressed(int caja){
-        if(position[caja-1].getText().equals("")){
+    //metodo para cambiar de turno
+    public void cambiarturno(){
+        if(turno.equals("X")){
+            turno  ="O";
+        }
+        else{
+            turno = "X";
+        }
+        
+        //Cambiar el texto que dice de quien es el turno
+        Decirturno.setText("Turno de: "+turno);
+    }
+    
+    //Metodo para comprobar el ganador
+    public void comprobarganador(){
+        boolean hayganador = false;
+        
+        for (int i = 0; i < victorias.length; i++) {
+            //Revisa donde gano la x
+            if(posicion[victorias[i][0]-1].getText().equals("X") &&
+                    posicion[victorias[i][1]-1].getText().equals("X")&&
+                            posicion[victorias[i][2]-1].getText().equals("X")){
+                
+                //Poner fondo para decir la linea que gano
+                posicion[victorias[i][0]-1].setBackground(Color.green);
+                posicion[victorias[i][1]-1].setBackground(Color.green);
+                posicion[victorias[i][2]-1].setBackground(Color.green);
+                
+                Decirturno.setText("Ha ganado X");
+                hayganador = true;
+            }
+            //revisa donde gano el O
+            if(posicion[victorias[i][0]-1].getText().equals("O") &&
+                    posicion[victorias[i][1]-1].getText().equals("O")&&
+                            posicion[victorias[i][2]-1].getText().equals("O")){
+                
+                //Poner fondo para decir la linea que gano
+                posicion[victorias[i][0]-1].setBackground(Color.green);
+                posicion[victorias[i][1]-1].setBackground(Color.green);
+                posicion[victorias[i][2]-1].setBackground(Color.green);
+                
+                Decirturno.setText("Ha ganado O");
+                hayganador = true;
+            }
+            //Comprobar si el tablero se llena para el empate
+            if(!hayganador){
+                boolean tablerolleno = true;
+                for (JLabel label : posicion) {
+                    if (label.getText().equals("")) {
+                        tablerolleno = false;
+                        break;
+                    }
+                }    
+                
+                if(tablerolleno){
+                    Decirturno.setText("Empate");
+                }
+            }
             
-        position[caja-1].setText(turn);
-        cambiarTurn();
-        winner();
-        }
-    }
-    public void cambiarTurn(){
-        if (turn.equals("X")) {
-            turn="O";
-        }else{
-            turn="X";
         }
     }
     
-    public void winner(){
-        for (int i = 0; i < ganador.length; i++) {
-            if (position[ganador[i][0]-1].getText().equals("X") && position[ganador[i][1]-1].getText().equals("X") && 
-                    position[ganador[i][2]-1].getText().equals("X")) {
-                System.out.println("Gano X");
-            }
-            if (position[ganador[i][0]-1].getText().equals("O") && position[ganador[i][1]-1].getText().equals("O") && 
-                    position[ganador[i][2]-1].getText().equals("O")) {
-                System.out.println("Gano O");
-            }
-        }
-    }
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -79,22 +123,34 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("JUGAR X O");
+        Decirturno = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
+        nombreplayer2 = new javax.swing.JLabel();
+        nombreplayer1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(240, 240));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setOpaque(true);
+        jLabel1.setPreferredSize(new java.awt.Dimension(48, 48));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setOpaque(true);
+        jLabel2.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel2MousePressed(evt);
@@ -106,6 +162,7 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setOpaque(true);
+        jLabel3.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel3MousePressed(evt);
@@ -117,6 +174,7 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setOpaque(true);
+        jLabel4.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel4MousePressed(evt);
@@ -128,6 +186,7 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setOpaque(true);
+        jLabel5.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel5MousePressed(evt);
@@ -139,6 +198,7 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setOpaque(true);
+        jLabel6.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel6MousePressed(evt);
@@ -150,6 +210,7 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setOpaque(true);
+        jLabel7.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel7MousePressed(evt);
@@ -161,6 +222,7 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setOpaque(true);
+        jLabel8.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel8MousePressed(evt);
@@ -172,20 +234,10 @@ public class TableroXO extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setOpaque(true);
+        jLabel9.setPreferredSize(new java.awt.Dimension(48, 48));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel9MousePressed(evt);
-            }
-        });
-
-        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setOpaque(true);
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel10MousePressed(evt);
             }
         });
 
@@ -197,23 +249,24 @@ public class TableroXO extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -221,99 +274,155 @@ public class TableroXO extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
-        );
+        Decirturno.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Decirturno.setText("Turno de: X");
+
+        titulo.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        titulo.setText("TIC TAC TOE");
+
+        nombreplayer2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        nombreplayer2.setText("Player 2: ");
+
+        nombreplayer1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        nombreplayer1.setText("Player 1: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(titulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nombreplayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                                .addComponent(nombreplayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Decirturno, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(titulo)
+                .addGap(18, 18, 18)
+                .addComponent(Decirturno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreplayer2)
+                    .addComponent(nombreplayer1))
+                .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        presionar(1);
+    }//GEN-LAST:event_jLabel1MousePressed
+
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
-       pressed(1);
+        // TODO add your handling code here:
+        presionar(2);
     }//GEN-LAST:event_jLabel2MousePressed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        pressed(2);
+        // TODO add your handling code here:
+        presionar(3);
     }//GEN-LAST:event_jLabel3MousePressed
 
     private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-        pressed(3);
+        // TODO add your handling code here:
+        presionar(4);
     }//GEN-LAST:event_jLabel4MousePressed
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        pressed(4);
+        // TODO add your handling code here:
+        presionar(5);
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
-        pressed(5);
+        // TODO add your handling code here:
+        presionar(6);
     }//GEN-LAST:event_jLabel6MousePressed
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
-        pressed(6);
+        // TODO add your handling code here:
+        presionar(7);
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
-        pressed(7);
+        // TODO add your handling code here:
+        presionar(8);
     }//GEN-LAST:event_jLabel8MousePressed
 
     private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
-        pressed(8);
+        // TODO add your handling code here:
+        presionar(9);
     }//GEN-LAST:event_jLabel9MousePressed
 
-    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-        pressed(9);
-    }//GEN-LAST:event_jLabel10MousePressed
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TableroXO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TableroXO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TableroXO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TableroXO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-    
-    /**
-     * @param args the command line arguments
-     */
-    
-    
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TableroXO().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Decirturno;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -322,7 +431,9 @@ public class TableroXO extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel nombreplayer1;
+    private javax.swing.JLabel nombreplayer2;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

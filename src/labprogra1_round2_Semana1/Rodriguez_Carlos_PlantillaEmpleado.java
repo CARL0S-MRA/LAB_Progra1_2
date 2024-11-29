@@ -24,7 +24,7 @@ public class Rodriguez_Carlos_PlantillaEmpleado {
                 "\n Nombre del Empleado: "+nombre+
                 "\n Horas de Trabajo: "+horasMensuales+
                 "\n Tarifa por Hora: "+tarifa+
-                "\n Salario: "+salario+" %");
+                "\n Salario: "+salario);
         
         
     }
